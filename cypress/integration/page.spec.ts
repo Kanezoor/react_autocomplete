@@ -81,7 +81,7 @@ describe('Page', () => {
 
       page
         .suggestionItems()
-        .should('have.have.length.gte', 1)
+        .should('have.length.gte', 1)
         .and('contain', person.name);
     });
 
