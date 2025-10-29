@@ -11,7 +11,7 @@ type Props = {
 
 export const Autocomplete: React.FC<Props> = ({
   people,
-  delay,
+  delay = 300,
   onSelected,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,13 +19,11 @@ export const Autocomplete: React.FC<Props> = ({
   const [appliedQuery, setAppliedQuery] = useState('');
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
 
-  const applyQuery = useCallback(debounce(setAppliedQuery, delay), [
-    appliedQuery,
-  ]);
+  const applyQuery = useCallback(debounce(setAppliedQuery, delay), [delay]);
 
   const filteredPeople = useMemo(() => {
     return people.filter(person =>
-      person.name.toLowerCase().includes(appliedQuery.toLowerCase()),
+      person.name.toLowerCase().includes(appliedQuery.trim().toLowerCase()),
     );
   }, [appliedQuery]);
 
